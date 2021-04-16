@@ -26,10 +26,10 @@ string Room::longDescription() {
 }
 
 string Room::exitString() {
-	string returnString = "\nexits =";
+    string returnString = "\nexits =";
 	for (map<string, Room*>::iterator i = exits.begin(); i != exits.end(); i++)
 		// Loop through map
-		returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
+        returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
 	return returnString;
 }
 
@@ -86,5 +86,43 @@ int Room::isItemInRoom(string inString)
             }
         }
     return -1;
+}
+
+int Room::addItemFromRoom(string inString)
+{
+    int sizeItems = (itemsInRoom.size());
+    if (itemsInRoom.size() < 1) {
+        return -1;
+        }
+    else if (itemsInRoom.size() > 0) {
+       int x = (0);
+        for (int n = sizeItems; n > 0; n--) {
+            // compare inString with short description
+            int tempFlag = inString.compare( itemsInRoom[x].getShortDescription());
+            if (tempFlag == 0) {
+                return x;
+            }
+            x++;
+            }
+        }
+    return -1;
+}
+
+void Room::deleteItem(string inString)
+{
+    int sizeItems = (itemsInRoom.size());
+       int x = (0);
+        for (int n = sizeItems; n > 0; n--) {
+            // compare inString with short description
+            int tempFlag = inString.compare(itemsInRoom[x].getShortDescription());
+            if (tempFlag == 0) {
+                itemsInRoom.erase(itemsInRoom.begin()+x);
+            }
+            x++;
+            }
+}
+
+Item Room::getItem(int x){
+    return itemsInRoom[x];
 }
 
