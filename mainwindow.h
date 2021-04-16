@@ -24,5 +24,9 @@ private slots:
     void on_South_clicked();
     void on_East_clicked();
     void on_West_clicked();
+    void on_pushButton_5_clicked();
+    void on_pushButton_Action1_clicked();
+    void on_pushButton_Action2_clicked();
+    void on_pushButton_Action3_clicked();
 };
 #endif // MAINWINDOW_H
