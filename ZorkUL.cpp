@@ -1,9 +1,13 @@
 #include <iostream>
 #include <QApplication>
 #include "mainwindow.h"
-
 #include "ZorkUL.h"
+#include "Character.h"
+#include <Character.h>
+
 using namespace std;
+
+Character *mainchar;
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
@@ -16,10 +20,11 @@ ZorkUL::ZorkUL() {
 }
 
 void ZorkUL::createRooms()  {
+ //   mainchar = new Character();
     Room *n1, *n2, *n3, *n2e, *n2w, *n2e2, *n2w2, *s1, *s2, *s1e, *e1, *e2, *e3, *e1s, *e1n, *e2n, *c1, *w1;
 
     //North Set
-    n1 = new Room("n1");
+    n1 = new Room("absolute north 1 yes oi");
         n1->addItem(new Item("x", 1, 11));
         n1->addItem(new Item("y", 2, 22));
     n2 = new Room("n2");
@@ -174,4 +179,30 @@ string ZorkUL::goRoom(Command command) {
     }
     return output;
 }
+/*
+string ZorkUL::take(Command command){
+    string test;
 
+       if (!command.hasSecondWord()) {
+       test = test +"\nIncomplete input";
+       }
+       else if (command.hasSecondWord()) {
+
+       test = test +"\nYou're trying to take " + command.getSecondWord() ;
+       int location = currentRoom->addItemFromRoom(command.getSecondWord());
+       if (location  < 0 ) {
+           test = test +"\nItem is not in room" ;
+           test = test + "\n" + currentRoom->longDescription() ;
+       }
+       else {
+           Item newItem = currentRoom -> getItem(currentRoom -> addItemFromRoom(command.getSecondWord()));
+           mainchar->addItem(newItem);
+           test = test + "\nItem is in room" ;
+           test = test + "\nIndex number " + to_string(location) ;
+           currentRoom->deleteItem(command.getSecondWord());
+           test = test +currentRoom->longDescription() ;
+         }
+        }
+    return test;
+}
+*/
