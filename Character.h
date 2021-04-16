@@ -1,7 +1,6 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 #include "ZorkUL.h"
-
 #include <string>
 using namespace std;
 #include <vector>
@@ -9,17 +8,24 @@ using std::vector;
 
 
 class Character {
-private:
-	string description;
+public:
+    Character();
+    string description;
     vector <Item> itemsInCharacter;
-public:
-	void addItems(string Item);
+    void addItems(string Item);
     void addItem(Item *item);
-
-public:
-	Character(string description);
-	string shortDescription();
-	string longDescription();
+    int hp;
+    int dmgdlt;
+    Character(string description);
+    string shortDescription();
+    string longDescription();
+    virtual ~Character();
+    void setHitPoints(int &HP);
+    int getHitPoints();
+    int getDamage();
+    void weaponOn(int initemid);
+    int findItemInInv(string itemname);
+    void foodConsumed();
 
 };
 
