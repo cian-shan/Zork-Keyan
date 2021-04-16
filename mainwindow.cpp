@@ -33,3 +33,17 @@ void MainWindow::on_West_clicked(){
     ui->outputbox->setText(game.play(Command("go","west")));
 }
 
+void MainWindow::on_pushButton_Action1_clicked()
+{
+    // activate action 1 if in room (x)
+}
+
+void MainWindow::on_pushButton_Action2_clicked()
+{
+    // activate action 2 if in room (x)
+}
+
+void MainWindow::on_pushButton_Action3_clicked()
+{
+    // activate action 3 in room (x)
+}
