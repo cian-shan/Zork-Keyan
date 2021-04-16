@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <QApplication>
+
 using namespace std;
 
 class ZorkUL {
@@ -22,7 +23,7 @@ private:
     string goRoom(Command command);
     void createItems();
     void displayItems();
-
+    string take(Command command);
 public:
 	ZorkUL();
     QString play(Command incommand);
