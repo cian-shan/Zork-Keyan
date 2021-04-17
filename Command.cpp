@@ -1,44 +1,91 @@
-#include "CommandWords.h"
+#include "Character.h"
 
-vector<string> CommandWords::validCommands;
+Character::Character() {
+    this->description = "Character Description";
 
-/**
- * Constructor - initialise the command words.
- */
-CommandWords::CommandWords() {
-	// Populate the vector if we haven't already.
-	if (validCommands.empty()) {
-		validCommands.push_back("go");
-		validCommands.push_back("quit");
-		validCommands.push_back("info");
-		validCommands.push_back("map");
-		validCommands.push_back("take");
-		validCommands.push_back("put");
-	}
+    this->dmgdlt = 16;
+    // change on weapon pick up **
+    this->hp = 100;
+
+
 }
 
-/**
- * Check whether a given String is a valid command word.
- * Return true if it is, false if it isn't.
- **/
-bool CommandWords::isCommand(string aString) {
-	for (unsigned int i = 0; i < validCommands.size(); i++)
-	{
-		if (validCommands[i].compare(aString) == 0)
-			return true;
-	}
-	// if we get here, the string was not found in the commands
-	return false;
+//Destructor
+Character::~Character() {
 }
 
-/*
- * Print all valid commands to System.out.
- */
-void CommandWords::showAll() {
-	//Loops through validCommands and prints each to the screen.
-	for (unsigned int i = 0; i < validCommands.size(); i++)
-	{
-		cout << validCommands[i]<< "  ";
-	}
-	cout << endl;
+void Character::setHitPoints(int &HP){
+   this->hp = HP;
 }
+int Character::getHitPoints(){
+    return hp;
+}
+int Character::getDamage(){
+    return dmgdlt;
+}
+
+void Character::addItem(Item item) {
+    itemsInCharacter.push_back(item);
+}
+
+int Character::findItemInInv(string itemname)
+{
+    int sizeItems = (itemsInCharacter.size());
+    if (itemsInCharacter.size() < 1) {
+        return -1;
+        }
+    else if (itemsInCharacter.size() > 0) {
+        for (int n = 0; n <= sizeItems; n++) {
+            // compare inString with short description
+            int tempFlag = itemname.compare(itemsInCharacter[n].getShortDescription());
+            if (tempFlag == 0) {
+                return n;
+                break;
+            }
+            }
+        }
+    return -1;
+}
+
+//Deal Different damage depending on weapon used
+void Character::weaponOn(int weapondmg) {
+    int dmg = weapondmg;
+    switch(dmg) {
+    case 1:
+    {
+        dmgdlt = 40;
+        break;
+    }
+    case 2:
+    {
+        dmgdlt = 50;
+        break;
+    }
+    case 3:
+    {
+        dmgdlt = 60;
+        break;
+    }
+    }
+}
+
+void Character::foodConsumed () {
+    this->hp = hp + 50;
+    if (hp > 100){
+        hp = 100;
+    }
+    itemsInCharacter.erase(itemsInCharacter.begin()+findItemInInv("Food"));
+}
+
+
+string Character::longDescription()
+{
+  string ret = this->description;
+  ret += "\n Item list:\n";
+  for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++)
+    ret += "\t"+ (*i).getLongDescription() + "\n";
+  return ret;
+}
+
+
+
