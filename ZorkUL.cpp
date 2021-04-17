@@ -179,7 +179,7 @@ string ZorkUL::goRoom(Command command) {
     }
     return output;
 }
-/*
+
 string ZorkUL::take(Command command){
     string test;
 
@@ -205,4 +205,7 @@ string ZorkUL::take(Command command){
         }
     return test;
 }
-*/
+
+int ZorkUL::getCharHP(){
+    return mainchar->getHitPoints();
+}
