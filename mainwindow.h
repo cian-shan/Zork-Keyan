@@ -28,5 +28,6 @@ private slots:
     void on_pushButton_Action2_clicked();
     void on_pushButton_Action3_clicked();
     void on_comboBox_activated(const QString &arg1);
+    void on_pushButton_Take_clicked();
 };
 #endif // MAINWINDOW_H
