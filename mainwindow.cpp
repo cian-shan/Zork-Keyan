@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    //output hp in text browser;
+    ui->textBrowser_Health->setText(QString::number(game.getCharHP()));
     delete ui;
 }
 
@@ -31,9 +33,4 @@ void MainWindow::on_East_clicked(){
 }
 void MainWindow::on_West_clicked(){
     ui->outputbox->setText(game.play(Command("go","west")));
-}
-
-void MainWindow::on_pushButton_Take_clicked()
-{
-
 }
