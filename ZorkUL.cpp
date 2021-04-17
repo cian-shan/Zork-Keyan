@@ -20,7 +20,7 @@ ZorkUL::ZorkUL() {
 }
 
 void ZorkUL::createRooms()  {
- //   mainchar = new Character();
+    mainchar = new Character();
     Room *n1, *n2, *n3, *n2e, *n2w, *n2e2, *n2w2, *s1, *s2, *s1e, *e1, *e2, *e3, *e1s, *e1n, *e2n, *c1, *w1;
 
     //North Set
@@ -209,3 +209,4 @@ string ZorkUL::take(Command command){
 int ZorkUL::getCharHP(){
     return mainchar->getHitPoints();
 }
+
