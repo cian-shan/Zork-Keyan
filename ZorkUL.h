@@ -26,6 +26,7 @@ private:
     string take(Command command);
 public:
 	ZorkUL();
+    int getCharHP();
     QString play(Command incommand);
     QString go(string direction);
 };
