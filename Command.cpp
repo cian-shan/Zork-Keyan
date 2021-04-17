@@ -1,42 +1,91 @@
-#include "Command.h"
+#include "Character.h"
 
-/**
- * Create a command object. First and second word must be supplied, but
- * either one (or both) can be null. The command word should be null to
- * indicate that this was a command that is not recognised by this game.
- */
-Command::Command(string firstWord, string secondWord) {
-	this->commandWord = firstWord;
-	this->secondWord = secondWord;
+Character::Character() {
+    this->description = "Character Description";
+
+    this->dmgdlt = 16;
+    // change on weapon pick up **
+    this->hp = 100;
+
+
 }
 
-/**
- * Return the command word (the first word) of this command. If the
- * command was not understood, the result is null.
- */
-string Command::getCommandWord() {
-	return this->commandWord;
+//Destructor
+Character::~Character() {
 }
 
-/**
- * Return the second word of this command. Returns null if there was no
- * second word.
- */
-string Command::getSecondWord() {
-	return this->secondWord;
+void Character::setHitPoints(int &HP){
+   this->hp = HP;
+}
+int Character::getHitPoints(){
+    return hp;
+}
+int Character::getDamage(){
+    return dmgdlt;
 }
 
-/**
- * Return true if this command was not understood.
- */
-bool Command::isUnknown() {
-	return (commandWord.empty());
+void Character::addItem(Item item) {
+    itemsInCharacter.push_back(item);
 }
 
-/**
- * Return true if the command has a second word.
- */
-bool Command::hasSecondWord() {
-	return (!secondWord.empty());
+int Character::findItemInInv(string itemname)
+{
+    int sizeItems = (itemsInCharacter.size());
+    if (itemsInCharacter.size() < 1) {
+        return -1;
+        }
+    else if (itemsInCharacter.size() > 0) {
+        for (int n = 0; n <= sizeItems; n++) {
+            // compare inString with short description
+            int tempFlag = itemname.compare(itemsInCharacter[n].getShortDescription());
+            if (tempFlag == 0) {
+                return n;
+                break;
+            }
+            }
+        }
+    return -1;
 }
+
+//Deal Different damage depending on weapon used
+void Character::weaponOn(int weapondmg) {
+    int dmg = weapondmg;
+    switch(dmg) {
+    case 1:
+    {
+        dmgdlt = 40;
+        break;
+    }
+    case 2:
+    {
+        dmgdlt = 50;
+        break;
+    }
+    case 3:
+    {
+        dmgdlt = 60;
+        break;
+    }
+    }
+}
+
+void Character::foodConsumed () {
+    this->hp = hp + 50;
+    if (hp > 100){
+        hp = 100;
+    }
+    itemsInCharacter.erase(itemsInCharacter.begin()+findItemInInv("Food"));
+}
+
+
+string Character::longDescription()
+{
+  string ret = this->description;
+  ret += "\n Item list:\n";
+  for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++)
+    ret += "\t"+ (*i).getLongDescription() + "\n";
+  return ret;
+}
+
+
 
