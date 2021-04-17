@@ -13,7 +13,7 @@ public:
     string description;
     vector <Item> itemsInCharacter;
     void addItems(string Item);
-    void addItem(Item *item);
+    void addItem(Item item);
     int hp;
     int dmgdlt;
     Character(string description);
