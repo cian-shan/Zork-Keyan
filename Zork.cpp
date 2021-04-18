@@ -22,6 +22,8 @@ Zork::Zork(QWidget *parent) :
     player.setName(charName);
     ui->outputText->append(game.printWelcome(player.getName()));
     ui->healthBar->setValue(player.health);
+    ui->outputText_inventory->setText(QString::fromStdString(player.longDescription()));
+    ui->outputText_map->setText(game.map());
 }
 
 Zork::~Zork()
@@ -43,22 +45,22 @@ void Zork::gameOver(string title, string body, string desc){
 }
 
 void Zork::gameWon(string desc){
-    gameOver("Winner Winner", "WIN!\n", desc);
+    gameOver("Game Over", "You've Won!\n", desc);
 
 }
 
 void Zork::gameLost(string desc){
-    gameOver("Game over.", "L!\n", desc);
+    gameOver("Game Over !", "You've Lost!\n", desc);
 }
 
 void Zork::checkWin(){
     if(game.currentRoom->type=="win")
-        gameWon("You have reached the magical destination");
+        gameWon("The door swings open to reveal the light of the outside world, you take your first steps towards it and see a green meadow, Congratulations, You've escaped !");
 }
 
 void Zork::on_teleport_clicked()
 {
-    ui->outputText->append("Teleported");
+    ui->outputText->append("You feel strange, as the room around you shifts and changes, you've been teleported !");
     game.teleport();
     takeButtons();
     ui->outputText->append(QString::fromStdString(game.currentRoom->longDescription()));
@@ -74,21 +76,20 @@ void Zork::go(string direction) {
 void Zork::healthChange(int delta){
     ui->outputText->append(QString::fromStdString(to_string(delta)));
     if(delta < 0)
-        ui->outputText->append("Ouch!");
+        ui->outputText->append("The liquid burns, You feel nauseous and weak...");
     else if (delta > 0)
-        ui->outputText->append("Yum!");
+        ui->outputText->append("The liquid gives you a strange feeling, you feel energised and more powerful !");
 
     player.health += delta;
     if(player.health<1){
         ui->healthBar->setValue(0);
-        gameLost("Oh dear, you are dead.");
+        gameLost("You splutter and choke on the liquid as you feel a burning sensation throughout your body, you draw your final breath; You are Dead !");
     }
     ui->healthBar->setValue(player.health);
 }
 
 void Zork::on_goNorth_clicked() {
     go("north");
-    healthChange(-20);
 }
 
 void Zork::on_goEast_clicked(){
@@ -103,14 +104,6 @@ void Zork::on_goWest_clicked(){
     go("west");
 }
 
-void Zork::on_map_clicked(){
-    ui->outputText_map->append(game.map());
-}
-
-void Zork::on_inventory_clicked()
-{
-    ui->outputText_inventory->append(QString::fromStdString(player.longDescription()));
-}
 
 void Zork::on_TakeX_clicked()
 {
@@ -140,6 +133,7 @@ void Zork::takeItem(QPushButton* takeBtn){
     takeBtn->setVisible(false);
 
     healthChange((toAdd)->getValue());
+    ui->outputText_inventory->setText(QString::fromStdString(player.longDescription()));
 }
 
 void Zork::takeButtons(){
