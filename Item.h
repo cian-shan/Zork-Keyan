@@ -26,7 +26,8 @@ public:
     double getWeight();
     void setWeight(double weightGrams);
     virtual int getValue() = 0;
-    virtual double getSodium() = 0;
+    virtual double getDam() = 0;
+    virtual int getKey() = 0;
     string getType();
     void setValue(int value);
 	int getWeaponCheck();
