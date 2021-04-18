@@ -35,7 +35,7 @@ string Character::longDescription(){
     for (vector<Item *>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++)
         ret += "\t"+ to_string((i-itemsInCharacter.begin())+1) + ": " + (*i)->getLongDescription();
     int bestHeal = 0;
-    double highestDam = 0;
+    int highestDam = 0;
     int numkeys = 0;
     for (vector<Item *>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++){
         bestHeal = larger(bestHeal, (*i)->getValue());
