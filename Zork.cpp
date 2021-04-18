@@ -1,3 +1,7 @@
+/*  Moving North will hurt
+ *  Items may heal or hurt you
+ *  Room H will win the game
+ */
 
 #include "Zork.h"
 #include "ui_zork.h"
