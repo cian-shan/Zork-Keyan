@@ -1,23 +1,34 @@
-#include "Food.h"
+#ifndef CHARACTER_H_
+#define CHARACTER_H_
+#include "Item.h"
+#include "food.h"
 
-Food::Food(string desc, int val, int dam, int key)
-    : Item(desc){
-    this->healValue = val;
-    this->damage = dam;
-    this->keys = key;
-}
-int Food::getValue(){
-    return this->healValue;
-}
+#include <string>
+#include <sstream>
+using namespace std;
+#include <vector>
+using std::vector;
 
-int Food::getDam(){
-    return this->damage;
-}
 
-int Food::getKey(){
-    return this->keys;
-}
+class Character {
+private:
+	string description;
+    vector <Item *> itemsInCharacter;
 
-void Food::operator ++(){
-    this->healValue+=20;
-}
+public:
+    int health=50;
+    void addItem(Item *item);
+    void addItem(Item &item);
+
+public:
+    Character();
+	Character(string description);
+	string shortDescription();
+	string longDescription();
+    string name;
+    void setName(string name);
+    string getName();
+    string getHealth();
+};
+
+#endif
