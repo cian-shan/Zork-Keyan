@@ -32,16 +32,18 @@ T larger(const T & val1, const T & val2){
 
 string Character::longDescription(){
     string ret = this->description;
-    ret += "\nInventory:\n";
     for (vector<Item *>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++)
         ret += "\t"+ to_string((i-itemsInCharacter.begin())+1) + ": " + (*i)->getLongDescription();
     int bestHeal = 0;
-    double highestSod = 0;
+    double highestDam = 0;
+    int numkeys = 0;
     for (vector<Item *>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++){
         bestHeal = larger(bestHeal, (*i)->getValue());
-        highestSod = larger(highestSod, (*i)->getSodium());
+        highestDam = larger(highestDam, (*i)->getDam());
+        numkeys = larger(numkeys, (*i)->getKey());
     }
-    ret += "\tBest Health Boost: " + to_string(bestHeal) + "\n";
-    ret += "\tHighest Sodium Content: " + to_string(highestSod) + "\n";
+    ret += "\tBest Health Boost From Potion: " + to_string(bestHeal) + "\n";
+    ret += "\tMost Damage From Potion: " + to_string(highestDam) + "\n";
+    ret += "\tNumber of keys Collected = " + to_string(numkeys) + "\n";
     return ret;
 }
