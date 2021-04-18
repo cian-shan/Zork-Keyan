@@ -79,7 +79,7 @@ QString Gameplay::go(string direction) {
     Room* nextRoom = this->currentRoom->nextRoom(direction);
     string output;
     if (nextRoom == NULL)
-        output = ("That's a dead-end!");
+        output = ("You can't go this way");
     else{
         output = ("Moving " + direction);
         this->currentRoom = nextRoom;
