@@ -1,37 +1,24 @@
-#ifndef ITEM_H_
-#define ITEM_H_
+#ifndef GAMEPLAY_H
+#define GAMEPLAY_H
+#include <QMainWindow>
+#include "Room.h"
+#include "Item.h"
+#include "Food.h"
+using std::string;
 
-#include <map>
-#include <string>
-#include <iostream>
-using namespace std;
-
-class Item {
+class Gameplay
+{
 private:
-	string description;
-	string longDescription;
-    double weightGrams;
-    int value;
-    string type;
-	bool weaponCheck;
-
+    Gameplay();
+    Room *currentRoom;
+    void createRooms();
+    vector<Room*> rooms;
+    QString printWelcome(string);
+    void teleport();
+    QString map();
+    QString go(string direction);
 public:
-    Item (string description, double inWeight);
-    Item (string description);
-    Item (string inDescription, string type, int value);
-    Item ();
-    virtual ~Item() = 0;
-	string getShortDescription();
-    string getLongDescription();
-    double getWeight();
-    void setWeight(double weightGrams);
-    virtual int getValue() = 0;
-    virtual double getDam() = 0;
-    virtual int getKey() = 0;
-    string getType();
-    void setValue(int value);
-	int getWeaponCheck();
-    void setWeaponCheck(int weaponCheck);
+    friend class Zork;
 };
 
-#endif /*ITEM_H_*/
+#endif // GAMEPLAY_H
