@@ -1,17 +1,17 @@
 #include "Food.h"
 
-Food::Food(string desc, int val, double sod, int key)
+Food::Food(string desc, int val, int dam, int key)
     : Item(desc){
     this->healValue = val;
-    this->sodium = sod;
+    this->damage = dam;
     this->keys = key;
 }
 int Food::getValue(){
     return this->healValue;
 }
 
-double Food::getSodium(){
-    return this->sodium;
+double Food::getDam(){
+    return this->damage;
 }
 
 int Food::getKey(){
