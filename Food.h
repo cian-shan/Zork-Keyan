@@ -9,7 +9,7 @@ class Food : public Item
 public:
     Food(string, int, int, int);
     virtual int getValue();
-    virtual double getDam();
+    virtual int getDam();
     virtual int getKey();
     void operator ++();
 private:
