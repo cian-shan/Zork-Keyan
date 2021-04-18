@@ -1,104 +1,166 @@
-#include "Gameplay.h"
+/*  Moving North will hurt
+ *  Items may heal or hurt you
+ *  Room H will win the game
+ */
 
-Gameplay::Gameplay()
+#include "Zork.h"
+#include "ui_zork.h"
+
+Zork::Zork(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::Zork)
 {
-    srand (time(0));
-    createRooms();
+    ui->setupUi(this);
+    // Hide my take buttons by default
+    ui->TakeX->setVisible(false);
+    ui->TakeY->setVisible(false);
+
+    game.createRooms();
+
+    takeButtons();
+    string charName = (QInputDialog::getText(parent,"Character Customisation","Enter your name:")).toStdString();
+    player.setName(charName);
+    ui->outputText->append(game.printWelcome(player.getName()));
+    ui->healthBar->setValue(player.health);
 }
 
-QString Gameplay::printWelcome(string name) {
-    string output =
-           string("\nWelcome, ") + (name) + "!" +
-           string("\n<-- Your health is on the left\n") +
-           (this->currentRoom->longDescription());
-    return QString::fromStdString(output);
+Zork::~Zork()
+{
+    delete ui;
 }
 
-void Gameplay::createRooms()  {
-    Room *n1, *n2, *n3, *s1, *s2, *s3, *s4, *e1, *e2, *e3, *e4, *e5, *c1, *exit;
 
-    c1 = new Room("c1 -- You stand in the middle of a damp room, lit by the sunlight emerging from a grate above you. There is an exit to the north, south and east of you. There is a noticeably large door to the east..", "NA");
-            c1->addItem(new Food("Apple", 25, 1.2, 0));
-            c1->addItem(new Food("Pineapple", -15, 2.6, 0));
-        n1 = new Room("n1 -- A humid heat hits you as you step into a room full of vegetation. There are exits to the north, west and south of the room.", "NA");
-            n1->addItem(new Food("Durian", -50, 5.82, 0));
-            n1->addItem(new Food("Banana", 40, 0.5, 0));
-        n2 = new Room("n2 -- The heat subsides as you are suddenly in knee high water. There is something moving in the water. There is a lantern hanging on the other side of the room.", "NA");
-        n3 = new Room("n3 -- A writing mass of vines and bones writhes across the entirety of the floor in front of you, except for under the dimly lit torch at the other side of the room where a peculiar empty circle of floor remains. There is a key hanging at the other side of the room.", "NA");
-        e1 = new Room("e1 -- A loud cascade of pistons shakes the room and blood drips from the vents above. There is an exit to the west and north. ", "NA");
-        e2 = new Room("e2 -- Blood filled pipes line the walls and a stench of rotting flesh invades your nostrils. There is a pale figure standing under a ceiling light, his grin stretches ear to ear as he notices your presence. There is an exit to the south and east.", "NA");
-        e3 = new Room("e3 -- You stand in a white tiled room, illuminated by a light hanging from the ceiling. There is an exit to the west and south.", "NA");
-        e4 = new Room("e4 -- You enter the secret room that greets you with warmth as the soothing heat warms your body. There is a slingshot and a key hanging on the wall across from you. There is an exit to the south.There is an exit to the north and south.", "NA");
-        e5= new Room("e5", "NA");
-            e5->addItem(new Food("Golden Key", 0, 0, 1));
-        s1 = new Room("s1 -- You feel a cold grip around your body as you enter the room. All surfaces of the room are covered in a layer of ice, most concerning is the floor.[Now a 50% chance to slip when walking or attacking].  ", "NA");
-        s2 = new Room("s2 -- There is a stench in the air as an ice troll stands in front of you menacingly. There is an exit to the east south and north ", "NA");
-        s3 = new Room("s3 -- An ominous sound reverberates around the room. 2 keys hang in front of you, with a sign that reads “One shall lead you, the other is lead”. ", "NA");
-        s4 = new Room("s4 -- A wolf stands in front of you, he bares his fangs and looks quite hungry, perhaps you are his next meal? Behind him, a key hangs on the wall. There is an exit to the east.", "NA");
-            s4->addItem(new Food("Silver Key", 0, 0, 1));
-        exit = new Room("exit", "win");
+void Zork::gameOver(string title, string body, string desc){
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(QString::fromStdString(title));
+    msgBox.setText(QString::fromStdString(body) + QString::fromStdString(desc));
+    QPushButton *abortButton = msgBox.addButton(QMessageBox::Close);
 
-
-   /* rooms.push_back(a); rooms.push_back(b); rooms.push_back(c); rooms.push_back(d); rooms.push_back(e);
-    rooms.push_back(f); rooms.push_back(g); rooms.push_back(h); rooms.push_back(i); rooms.push_back(j);*/
-
-//             (N, E, S, W)
-
-    // Centre
-    c1->setExits(n1, e1, s1, exit);
-    // North Set
-    n1->setExits(n3,NULL,c1,n2);
-    n2->setExits(NULL,n1,NULL,NULL);
-    n3->setExits(NULL,NULL,n1,NULL);
-    //East Set
-    e1->setExits(e2,NULL,NULL,c1);
-    e2->setExits(NULL,e3,e1,NULL);
-    e3->setExits(e5,NULL,e4,e2);
-    e4->setExits(e3,NULL,NULL,NULL);
-    e5->setExits(NULL,NULL,e3,NULL);
-    //South Set
-    s1->setExits(c1,s2,s3,NULL);
-    s2->setExits(NULL,NULL,NULL,n1);
-    s3->setExits(s1,NULL,s4,NULL);
-    s4->setExits(s3,NULL,NULL,NULL);
-    //Exit
-    exit->setExits(NULL,c1,NULL,NULL);
-
-        currentRoom = c1;
-}
-
-void Gameplay::teleport(){
-    int randomIndex=0;
-    do
-        randomIndex = rand() % (this->rooms).size();
-    while((*(this->currentRoom)).equals(*((this->rooms)[randomIndex])));
-    this->currentRoom = (this->rooms)[randomIndex];
-}
-
-QString Gameplay::go(string direction) {
-    Room* nextRoom = this->currentRoom->nextRoom(direction);
-    string output;
-    if (nextRoom == NULL)
-        output = ("That's a dead-end!");
-    else{
-        output = ("Moving " + direction);
-        this->currentRoom = nextRoom;
-        output += "\n" + (this->currentRoom->longDescription());
+    msgBox.exec();
+    if (msgBox.clickedButton() == abortButton) {
+        QApplication::quit();
     }
-    return QString::fromStdString(output);
 }
 
-QString Gameplay::map(){
-    string output =
-        string  ("            [j]        ") +
-                ("\n             |         ") +
-                ("\n             |         ") +
-                ("\n[h] --- [f] --- [g]") +
-                ("\n             |         ") +
-                ("\n             |         ") +
-                ("\n[c] --- [a] --- [b]") +
-                ("\n             |         ") +
-                ("\n             |         ") +
-                ("\n[i] --- [d] --- [e]");
-    return QString::fromStdString(output);
+void Zork::gameWon(string desc){
+    gameOver("Winner Winner", "WIN!\n", desc);
+
+}
+
+void Zork::gameLost(string desc){
+    gameOver("Game over.", "L!\n", desc);
+}
+
+void Zork::checkWin(){
+    if(game.currentRoom->type=="win")
+        gameWon("You have reached the magical destination");
+}
+
+void Zork::on_teleport_clicked()
+{
+    ui->outputText->append("Teleported");
+    game.teleport();
+    takeButtons();
+    ui->outputText->append(QString::fromStdString(game.currentRoom->longDescription()));
+    checkWin();
+}
+
+void Zork::go(string direction) {
+    ui->outputText->append(game.go(direction));
+    checkWin();
+    takeButtons();
+}
+
+void Zork::healthChange(int delta){
+    ui->outputText->append(QString::fromStdString(to_string(delta)));
+    if(delta < 0)
+        ui->outputText->append("Ouch!");
+    else if (delta > 0)
+        ui->outputText->append("Yum!");
+
+    player.health += delta;
+    if(player.health<1){
+        ui->healthBar->setValue(0);
+        gameLost("Oh dear, you are dead.");
+    }
+    ui->healthBar->setValue(player.health);
+}
+
+void Zork::on_goNorth_clicked() {
+    go("north");
+}
+
+void Zork::on_goEast_clicked(){
+    go("east");
+}
+
+void Zork::on_goSouth_clicked(){
+    go("south");
+}
+
+void Zork::on_goWest_clicked(){
+    go("west");
+}
+
+void Zork::on_map_clicked(){
+    ui->outputText_map->append(game.map());
+}
+
+void Zork::on_inventory_clicked()
+{
+    ui->outputText_inventory->append(QString::fromStdString(player.longDescription()));
+}
+
+void Zork::on_TakeX_clicked()
+{
+     takeItem(ui->TakeX);
+}
+
+void Zork::on_TakeY_clicked()
+{
+    takeItem(ui->TakeY);
+}
+
+void Zork::on_TakeZ_clicked()
+{
+    takeItem(ui->TakeZ);
+}
+
+void Zork::takeItem(QPushButton* takeBtn){
+    string itemText = (takeBtn->text()).toStdString();
+    string r = "Take ";
+    string::size_type i = itemText.find(r);
+    if (i != std::string::npos)
+       itemText.erase(i, r.length());
+
+    Item * toAdd = game.currentRoom->getItemFromString(itemText);
+    player.addItem(toAdd);
+    game.currentRoom->removeItemFromRoom(itemText);
+    takeBtn->setVisible(false);
+
+    healthChange((toAdd)->getValue());
+}
+
+void Zork::takeButtons(){
+
+    ui->TakeX->setVisible(false);
+    ui->TakeY->setVisible(false);
+    ui->TakeZ->setVisible(false);
+
+    // check if room has (max 3) items
+    // cycle through list of items, activating buttons and setting text to item description
+    if(game.currentRoom->numberOfItems()!=0){
+        if(game.currentRoom->numberOfItems()>0){
+            ui->TakeX->setVisible(true);
+            ui->TakeX->setText(QString::fromStdString("Take " + game.currentRoom->itemsInRoom[0]->getShortDescription()));
+        }
+        if(game.currentRoom->numberOfItems()>1){
+            ui->TakeY->setVisible(true);
+            ui->TakeY->setText(QString::fromStdString("Take " + game.currentRoom->itemsInRoom[1]->getShortDescription()));
+        }
+        if(game.currentRoom->numberOfItems()>2){
+            ui->TakeZ->setVisible(true);
+            ui->TakeZ->setText(QString::fromStdString("Take " + game.currentRoom->itemsInRoom[2]->getShortDescription()));
+        }
+    }
 }
