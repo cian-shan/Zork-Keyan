@@ -744,7 +744,7 @@ color:  black;
          <rect>
           <x>10</x>
           <y>300</y>
-          <width>91</width>
+          <width>161</width>
           <height>261</height>
          </rect>
         </property>
@@ -830,7 +830,7 @@ color:  black;
      <x>0</x>
      <y>0</y>
      <width>613</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
