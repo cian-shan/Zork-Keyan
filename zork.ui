@@ -81,6 +81,9 @@ color:  black;
           <height>151</height>
          </rect>
         </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QPushButton" name="map">
         <property name="geometry">
@@ -1693,22 +1696,28 @@ color:  black;
           <height>261</height>
          </rect>
         </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QTextEdit" name="outputText_map">
         <property name="geometry">
          <rect>
           <x>420</x>
-          <y>310</y>
+          <y>300</y>
           <width>161</width>
-          <height>251</height>
+          <height>261</height>
          </rect>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
        <widget class="QLabel" name="label_2">
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>280</y>
+          <y>270</y>
           <width>91</width>
           <height>21</height>
          </rect>
@@ -1727,8 +1736,8 @@ color:  black;
        <widget class="QLabel" name="label_3">
         <property name="geometry">
          <rect>
-          <x>490</x>
-          <y>280</y>
+          <x>480</x>
+          <y>270</y>
           <width>41</width>
           <height>21</height>
          </rect>
