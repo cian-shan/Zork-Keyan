@@ -7,14 +7,14 @@
 class Food : public Item
 {
 public:
-    Food(string, int, double, int);
+    Food(string, int, int, int);
     virtual int getValue();
-    virtual double getSodium();
+    virtual double getDam();
     virtual int getKey();
     void operator ++();
 private:
     int healValue;
-    double sodium;
+    int damage;
     int keys;
 };
 
