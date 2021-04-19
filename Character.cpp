@@ -3,6 +3,7 @@
 Character::Character()
 {
     health = 50;
+    keycount = 0;
 }
 
 Character::~Character(){}
@@ -16,11 +17,13 @@ void Character::setName(string name){
 string Character::getName(){
     return this->name;
 }
+
 string Character::getHealth(){
     std::ostringstream stm ;
     stm << this->health ;
     return stm.str();
 }
+
 void Character::addItem(Item &item) {
     itemsInCharacter.push_back(&item);
 }
@@ -42,14 +45,12 @@ string Character::longDescription(){
         ret += "\t"+ to_string((i-itemsInCharacter.begin())+1) + ": " + (*i)->getLongDescription();
     int bestHeal = 0;
     int highestDam = 0;
-    int numkeys = 0;
     for (vector<Item *>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++){
         bestHeal = larger(bestHeal, (*i)->getValue());
         highestDam = larger(highestDam, (*i)->getDam());
-        numkeys = larger(numkeys, (*i)->getKey());
     }
     ret += "\tBest Health Boost From Potion: " + to_string(bestHeal) + "\n";
     ret += "\tMost Damage From Potion: " + to_string(highestDam) + "\n";
-    ret += "\tNumber of keys Collected = " + to_string(numkeys) + "\n";
+    ret += "\tNumber of keys Collected = " + to_string(keycount) + "\n";
     return ret;
 }

@@ -54,7 +54,7 @@ void Zork::gameLost(string desc){
 }
 
 void Zork::checkWin(){
-    if(game.currentRoom->type=="win")
+    if(game.currentRoom->type=="win" && player.keycount == 3)
         gameWon("The door swings open to reveal the light of the outside world, you take your first steps towards it and see a green meadow, Congratulations, You've escaped !");
 }
 
@@ -127,6 +127,9 @@ void Zork::takeItem(QPushButton* takeBtn){
     if (i != std::string::npos)
        itemText.erase(i, r.length());
 
+    if (itemText == "Key")
+        player.keycount++;
+
     Item * toAdd = game.currentRoom->getItemFromString(itemText);
     player.addItem(toAdd);
     game.currentRoom->removeItemFromRoom(itemText);
@@ -163,5 +166,5 @@ void Zork::takeButtons(){
 
 void Zork::formatMap(){
     QPixmap map(":/resources/images/main-map.png");
-    ui->label_4->setPixmap(map.scaled(500,300,Qt::KeepAspectRatio));
+    ui->label_4->setPixmap(map.scaled(450,300,Qt::KeepAspectRatio));
 }

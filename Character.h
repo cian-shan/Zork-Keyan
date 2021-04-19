@@ -12,7 +12,7 @@ using std::vector;
 //Private, Public and Protected
 class Character {
 private:
-	string description;
+    string description;
     //Pointers
     vector <Item *> itemsInCharacter;
 
@@ -24,9 +24,10 @@ public:
 
 public:
     Character();
+    int keycount;
     //Destructor & Memory Management
     ~Character();
-	Character(string description);
+    Character(string description);
 	string shortDescription();
 	string longDescription();
     string name;
