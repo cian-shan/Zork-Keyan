@@ -1,11 +1,8 @@
 #include "Room.h"
 
+//Initalizer List
+Room::Room(string desc, string tp):description(desc), type(tp) {
 
-Room::Room(string description, string type) {
-	this->description = description;
-    this->type = type;
-    Foodlist* foodlist = new Foodlist();
-    Foods = foodlist->getFoods();
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -58,12 +55,6 @@ Room* Room::nextRoom(string direction) {
 }
 
 
-
-void Room::addItems(int foodindex){
-        Item *temp(new Food(Foods.at(foodindex)));
-        addItem(temp);
-    }
-
 void Room::addItem(Item *inItem) {
     //cout <<endl;
     //cout << "Just added" + inItem->getLongDescription();
@@ -105,8 +96,6 @@ void Room::removeItemFromRoom(string inString)
         }
     }
 }
-
-
 
 Item* Room::getItemFromString(string itemDesc){
     int sizeItems = (static_cast<int>(this->itemsInRoom.size()));

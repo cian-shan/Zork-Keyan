@@ -22,11 +22,11 @@ Zork::Zork(QWidget *parent) :
     ui->outputText->append(game.printWelcome(player.getName()));
     ui->healthBar->setValue(player.health);
     ui->outputText_inventory->setText(QString::fromStdString(player.longDescription()));
-    ui->outputText_map->setText(game.map());
+    formatMap();
 }
 
 Zork::~Zork()
-//Destructer
+//Destructor
 {
     delete ui;
 }
@@ -159,4 +159,9 @@ void Zork::takeButtons(){
             ui->TakeZ->setText(QString::fromStdString("Take " + game.currentRoom->itemsInRoom[2]->getShortDescription()));
         }
     }
+}
+
+void Zork::formatMap(){
+    QPixmap map(":/resources/images/main-map.png");
+    ui->label_4->setPixmap(map.scaled(500,300,Qt::KeepAspectRatio));
 }

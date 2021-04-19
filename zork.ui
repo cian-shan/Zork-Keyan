@@ -752,19 +752,6 @@ color:  black;
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QTextEdit" name="outputText_map">
-        <property name="geometry">
-         <rect>
-          <x>420</x>
-          <y>300</y>
-          <width>161</width>
-          <height>261</height>
-         </rect>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_2">
         <property name="geometry">
          <rect>
@@ -788,7 +775,7 @@ color:  black;
        <widget class="QLabel" name="label_3">
         <property name="geometry">
          <rect>
-          <x>480</x>
+          <x>470</x>
           <y>270</y>
           <width>41</width>
           <height>21</height>
@@ -805,6 +792,19 @@ color:  black;
          <string>Map:</string>
         </property>
        </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>290</y>
+          <width>211</width>
+          <height>281</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
        <zorder>TakeY</zorder>
        <zorder>TakeX</zorder>
        <zorder>outputText</zorder>
@@ -815,10 +815,10 @@ color:  black;
        <zorder>goEast</zorder>
        <zorder>goWest</zorder>
        <zorder>outputText_inventory</zorder>
-       <zorder>outputText_map</zorder>
        <zorder>goNorth</zorder>
        <zorder>label_2</zorder>
        <zorder>label_3</zorder>
+       <zorder>label_4</zorder>
       </widget>
      </widget>
     </item>

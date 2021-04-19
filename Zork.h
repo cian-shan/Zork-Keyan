@@ -60,6 +60,7 @@ private:
     void gameLost(string desc);
     void takeItem(QPushButton* takeBtn);
     void gameOver(string title, string body, string desc);
+    void formatMap();
     void checkWin();
 };
 

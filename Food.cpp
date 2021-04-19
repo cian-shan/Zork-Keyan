@@ -1,13 +1,11 @@
 #include "Food.h"
 
-/*
 Food::Food(string desc, int val, int dam, int key)
     : Item(desc){
     this->healValue = val;
     this->damage = dam;
     this->keys = key;
 }
-*/
 
 int Food::getValue(){
     return this->healValue;
@@ -24,12 +22,10 @@ int Food::getKey(){
 void Food::operator ++(){
     this->healValue+=20;
 }
-
-Apple::Apple(){
-this->description = "Apple";
-this->healValue = 20;
-this->damage = 0;
-this->keys = 0;
+//Copy Constructor
+Food::Food(const Food &a1){
+  this->description = a1.description;
+  this->healValue = a1.healValue;
+  this->damage = a1.damage;
+  this->keys = a1.keys;
 }
-
-Apple apple;

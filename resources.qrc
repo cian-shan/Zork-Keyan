@@ -4,7 +4,6 @@
         <file>images/arrow-west.png</file>
         <file>images/arrow-east.png</file>
         <file>images/arrow-south.png</file>
-        <file>images/backpack.png</file>
-        <file>images/map-colour.png</file>
+        <file>images/main-map.png</file>
     </qresource>
 </RCC>

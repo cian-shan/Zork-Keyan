@@ -15,7 +15,6 @@ SOURCES += \
     Item.cpp \
     Room.cpp \
     Zork.cpp \
-    foodlist.cpp \
     main.cpp
 
 HEADERS += \
@@ -24,8 +23,7 @@ HEADERS += \
     Gameplay.h \
     Item.h \
     Room.h \
-    Zork.h \
-    foodlist.h
+    Zork.h
 
 FORMS += \
     zork.ui
