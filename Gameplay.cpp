@@ -20,7 +20,7 @@ void Gameplay::createRooms()  {
             c1->addItem(new Food("Apple", 25, 0, 0));
             c1->addItem(new Food("Pineapple", -15, 15, 0));
         n1 = new Room("n1 -- A humid heat hits you as you step into a room full of vegetation. There are exits to the north, west and south of the room.", "NA");
-            n1->addItem(new Food("Durian", -50, 50, 0));
+            n1->addItem(new Food("Durian", -30, 30, 0));
             n1->addItem(new Food("Banana", 40, 0, 0));
         n2 = new Room("n2 -- The heat subsides as you are suddenly in knee high water. There is something moving in the water. There is a lantern hanging on the other side of the room.", "NA");
         n3 = new Room("n3 -- A writing mass of vines and bones writhes across the entirety of the floor in front of you, except for under the dimly lit torch at the other side of the room where a peculiar empty circle of floor remains. There is a key hanging at the other side of the room.", "NA");
@@ -81,6 +81,7 @@ QString Gameplay::go(string direction) {
         output = ("Moving " + direction);
         this->currentRoom = nextRoom;
         output += "\n" + (this->currentRoom->longDescription());
+
     }
     return QString::fromStdString(output);
 }

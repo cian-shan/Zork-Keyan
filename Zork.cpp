@@ -81,7 +81,7 @@ void Zork::healthChange(int delta){
         ui->outputText->append("The liquid gives you a strange feeling, you feel energised and more powerful !");
 
     player.health += delta;
-    if(player.health<1){
+    if(player.health<=0){
         ui->healthBar->setValue(0);
         gameLost("You splutter and choke on the liquid as you feel a burning sensation throughout your body, you draw your final breath; You are Dead !");
     }
@@ -90,20 +90,43 @@ void Zork::healthChange(int delta){
 
 void Zork::on_goNorth_clicked() {
     go("north");
+    player.damageMove();
+    ui->healthBar->setValue(player.health);
+    if(player.health<1){
+        ui->healthBar->setValue(0);
+        gameLost("You splutter and choke on the liquid as you feel a burning sensation throughout your body, you draw your final breath; You are Dead !");
+    }
 }
 
 void Zork::on_goEast_clicked(){
     go("east");
+    player.damageMove();
+    ui->healthBar->setValue(player.health);
+    if(player.health<1){
+        ui->healthBar->setValue(0);
+        gameLost("You splutter and choke on the liquid as you feel a burning sensation throughout your body, you draw your final breath; You are Dead !");
+    }
 }
 
 void Zork::on_goSouth_clicked(){
     go("south");
+    player.damageMove();
+    ui->healthBar->setValue(player.health);
+    if(player.health<1){
+        ui->healthBar->setValue(0);
+        gameLost("You splutter and choke on the liquid as you feel a burning sensation throughout your body, you draw your final breath; You are Dead !");
+    }
 }
 
 void Zork::on_goWest_clicked(){
     go("west");
+    player.damageMove();
+    ui->healthBar->setValue(player.health);
+    if(player.health<1){
+        ui->healthBar->setValue(0);
+        gameLost("You splutter and choke on the liquid as you feel a burning sensation throughout your body, you draw your final breath; You are Dead !");
 }
-
+}
 
 void Zork::on_TakeX_clicked()
 {

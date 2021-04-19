@@ -17,14 +17,15 @@ private:
     vector <Item *> itemsInCharacter;
 
 public:
-    //bit structures
-    unsigned int health : 8;
+    int health;
     void addItem(Item *item);
     void addItem(Item &item);
 
 public:
     Character();
-    int keycount;
+    //Bit Structures
+    unsigned int keycount: 6;
+    void damageMove();
     //Destructor & Memory Management
     ~Character();
     Character(string description);

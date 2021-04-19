@@ -24,6 +24,10 @@ string Character::getHealth(){
     return stm.str();
 }
 
+void Character::damageMove(){
+    health = health - 5;
+}
+
 void Character::addItem(Item &item) {
     itemsInCharacter.push_back(&item);
 }
