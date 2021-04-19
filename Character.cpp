@@ -1,6 +1,11 @@
 #include "Character.h"
 
-Character::Character(){}
+Character::Character()
+{
+    health = 50;
+}
+
+Character::~Character(){}
 
 Character::Character(string description) {
 	this->description = description;
@@ -23,6 +28,7 @@ void Character::addItem(Item *item) {
     itemsInCharacter.push_back(item);
 }
 
+//Definition of Template Functions
 template< typename T >
 T larger(const T & val1, const T & val2){
     if(val1>val2)

@@ -4,6 +4,8 @@
 Room::Room(string description, string type) {
 	this->description = description;
     this->type = type;
+    Foodlist* foodlist = new Foodlist();
+    Foods = foodlist->getFoods();
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -56,6 +58,12 @@ Room* Room::nextRoom(string direction) {
 }
 
 
+
+void Room::addItems(int foodindex){
+        Item *temp(new Food(Foods.at(foodindex)));
+        addItem(temp);
+    }
+
 void Room::addItem(Item *inItem) {
     //cout <<endl;
     //cout << "Just added" + inItem->getLongDescription();
@@ -84,7 +92,7 @@ int Room::numberOfItems() {
 
 void Room::removeItemFromRoom(string inString)
 {
-    int sizeItems = (static_cast<int>(this->itemsInRoom.size())); //TODO fix
+    int sizeItems = (static_cast<int>(this->itemsInRoom.size()));
     if (static_cast<int>(this->itemsInRoom.size() > 0)) {
        int x = (0);
        for (int n = sizeItems; n > 0; n--) {
@@ -97,6 +105,8 @@ void Room::removeItemFromRoom(string inString)
         }
     }
 }
+
+
 
 Item* Room::getItemFromString(string itemDesc){
     int sizeItems = (static_cast<int>(this->itemsInRoom.size()));

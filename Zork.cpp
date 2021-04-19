@@ -1,10 +1,9 @@
-/*  Moving North will hurt
- *  Items may heal or hurt you
- *  Room H will win the game
- */
 
 #include "Zork.h"
 #include "ui_zork.h"
+
+//Global Variable
+bool win;
 
 Zork::Zork(QWidget *parent) :
     QMainWindow(parent),
@@ -27,6 +26,7 @@ Zork::Zork(QWidget *parent) :
 }
 
 Zork::~Zork()
+//Destructer
 {
     delete ui;
 }
@@ -46,7 +46,7 @@ void Zork::gameOver(string title, string body, string desc){
 
 void Zork::gameWon(string desc){
     gameOver("Game Over", "You've Won!\n", desc);
-
+    win = 1;
 }
 
 void Zork::gameLost(string desc){
@@ -145,6 +145,7 @@ void Zork::takeButtons(){
     // check if room has (max 3) items
     // cycle through list of items, activating buttons and setting text to item description
     if(game.currentRoom->numberOfItems()!=0){
+        //Arrays & Pointers
         if(game.currentRoom->numberOfItems()>0){
             ui->TakeX->setVisible(true);
             ui->TakeX->setText(QString::fromStdString("Take " + game.currentRoom->itemsInRoom[0]->getShortDescription()));

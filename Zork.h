@@ -1,6 +1,8 @@
+//Advanced Pre-Processor Directive : if->endif
+//Header files (Inclusion Guard)
 #ifndef ZORK_H
 #define ZORK_H
-
+//Basic Pre-Processor Directive: #include
 #include <QMainWindow>
 #include <QCommandLinkButton>
 #include <QInputDialog>

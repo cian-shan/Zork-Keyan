@@ -7,8 +7,9 @@
 using namespace std;
 
 class Item {
+protected:
+    string description;
 private:
-	string description;
 	string longDescription;
     double weightGrams;
     int value;

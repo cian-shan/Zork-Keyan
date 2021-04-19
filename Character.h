@@ -1,7 +1,7 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 #include "Item.h"
-#include "food.h"
+#include "Food.h"
 
 #include <string>
 #include <sstream>
@@ -9,19 +9,23 @@ using namespace std;
 #include <vector>
 using std::vector;
 
-
+//Private, Public and Protected
 class Character {
 private:
 	string description;
+    //Pointers
     vector <Item *> itemsInCharacter;
 
 public:
-    int health=50;
+    //bit structures
+    unsigned int health : 8;
     void addItem(Item *item);
     void addItem(Item &item);
 
 public:
     Character();
+    //Destructor & Memory Management
+    ~Character();
 	Character(string description);
 	string shortDescription();
 	string longDescription();
